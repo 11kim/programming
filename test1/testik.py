@@ -15,7 +15,9 @@ for i in a:
     j1 = i[i.find("|") + 1:].find("|") + (i.find("|") + 1)
     j2 = i.rfind("|")
     if (j2 > j1 + 1):
-        print(i[j1 + 1:j2])
+        #print(i[j1 + 1:j2])
+        count += 1
+print(count)
 
 
 print("\nTask 3")
