@@ -1,5 +1,12 @@
 import random
 
+def length(word):
+    count = 0
+    for i in word:
+        if i.isalpha():
+            count += 1
+    return count
+
 
 def file_reader_dict(filename):
     words_hints = {}
@@ -14,7 +21,7 @@ def file_reader_dict(filename):
         for i in range(1, len(word_line), 2):
             if not word_line[i]:
                 break
-            hints.append((word_line[i], word_line[i + 1], len(word_line[i])))
+            hints.append((word_line[i], word_line[i + 1], length(word_line[i])))
         words_hints[word_line[0]] = hints
     return words_hints
 
