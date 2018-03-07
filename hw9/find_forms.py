@@ -24,8 +24,8 @@ def find_parts(line):
     flex_pal = {"ий", "его", "ему", "им", "ем", "ее", "яя", "ей", "юю"}
     hard = built_re(flex_hard)
     pal = built_re(flex_pal)
-    perf = '(?:(?:программируем)|(?:программированн))' + hard
-    act = '(?:(?:программирующ)|(?:программировавш))' + pal + '(?:ся)?'
+    perf = '(?:^| |/-)(?:(?:программируем)|(?:программированн))' + hard
+    act = '(?:^| |/-)(?:(?:программирующ)|(?:программировавш))' + pal + '(?:ся)?'
     part = re.findall(perf, line)
     part += re.findall(act, line)
     return part
@@ -33,6 +33,7 @@ def find_parts(line):
 def adder(forms, words):
     for word in words:
         if word:
+            word = cleaner(word)
             forms.add(word)
     return forms
 
@@ -41,7 +42,7 @@ def cleaner(word):
         return
     if not word[0].isalpha():
         word = word[1:]
-    if not word[-1].isalpa():
+    if not word[-1].isalpha():
         word = word[:-1]
     return word
 
@@ -50,8 +51,8 @@ def find_forms(file_name):
     with open(file_name, "r", encoding = "utf-8") as file:
         for line in file:
             line = line.lower()
-            verbs = re.findall(r'(?:программиру(?:(?:(?:ю|(?:ете))(?:сь)?)|(?:(?:(?:ешь)|(?:ет)|(?:ют)|(?:ем))(?:ся))))|(?:программирова((?:л[аои](?:ся)?)|(?:(?:(?:ть)|л)(?:ся)?)))', line)
-            gerund = re.findall(r'программируя(?:сь)?', line)
+            verbs = re.findall(r'(?:^| |/-)(?:программиру(?:(?:(?:ю|(?:ете))(?:сь)?)|(?:(?:(?:ешь)|(?:ет)|(?:ют)|(?:ем))(?:ся))))|(?:программирова(?:(?:л[аои](?:сь)?)|(?:(?:(?:ть)|л)(?:ся)?)))', line)
+            gerund = re.findall(r'(?:^| |/-)программируя(?:сь)?', line)
             part = find_parts(line)
             forms = adder(forms, verbs)
             forms = adder(forms, gerund)
@@ -67,7 +68,7 @@ def main():
         print("!incorrect file name")
         return
     forms = find_forms(file_name)
-    print(forms)
+    #print(forms)
     for form in forms:
         print(form)
 
