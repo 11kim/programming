@@ -29,7 +29,7 @@ def find_coll(filename):
 
 def make_file(bi, ph):
     with open('bigramms.txt', 'a', encoding='utf-8') as file:
-        file.write(bi + '\t' + ph)
+        file.write(bi + '\t' + ph + '\n')
 
 def main():
     file_list = os.listdir('news')
