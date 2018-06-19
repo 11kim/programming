@@ -22,9 +22,9 @@ def find_coll(filename):
                 word2 = re.findall('</ana>(.+)</w>', next)[0]
                 gr1 = re.findall('gr="(.+)"', line)[0]
                 gr2 = re.findall('gr="(.+)"', next)[0]
-                if gr1[0] == 'S' and gr2[0] == 'S' and 'gen' in gr2:
+                if gr1[0] == 'S' and not('S-PRO' in gr1) and not('S-PRO' in gr2) and gr2[0] == 'S' and 'gen' in gr2:
                     make_file(word1 + ' ' + word2, ph)
-                    print(word1, word2, ph)
+                    print(word1, word2, filename)
 
 
 def make_file(bi, ph):
